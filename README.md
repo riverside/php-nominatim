@@ -4,6 +4,12 @@
 PHP client for Nominatim, a search engine for OpenStreetMap data.
 
 https://zinoui.com/
+#### Installation
+- install via composer
+```
+composer require riverside/php-nominatim
+```
+
 #### Loading
 ```php
 require __DIR__ . '/vendor/autoload.php';
