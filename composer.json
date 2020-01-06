@@ -1,0 +1,33 @@
+{
+  "name": "riverside/php-nominatim",
+  "description": "PHP client for Nominatim, a search engine for OpenStreetMap data.",
+  "type": "library",
+  "version": "1.0.0",
+  "keywords": ["php", "osm", "geocoding", "nominatim", "openstreetmap"],
+  "homepage": "https://github.com/riverside/php-nominatim",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dimitar Ivanov",
+      "email": "info@zinoui.com",
+      "homepage": "https://zinoui.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "ext-json": "*",
+    "ext-curl": "*",
+    "php": ">=5.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "8"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhpNominatim\\": "src/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  }
+}
