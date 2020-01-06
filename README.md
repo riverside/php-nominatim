@@ -15,14 +15,14 @@ $client = new \PhpNominatim\Client();
 try {
     $response = $client->search('Madison Square Garden, NY');
     if ($response->isOK()) {
-		echo $response->getLat() . ", " . $response->getLng();
+        echo $response->getLat() . ", " . $response->getLng();
     } else {
-		echo 'Location not found.';
+        echo 'Location not found.';
     }
 } catch (\PhpNominatim\Exception $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 } catch (Exception $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 }
 ```
 
@@ -30,16 +30,16 @@ try {
 ```php
 $client = new \PhpNominatim\Client();
 try {
-	$response = $client->reverse(48.8539373, 2.2825966);
-	if ($response->isOK()) {
-		echo $response->getAddress();
-	} else {
-		echo 'Address not found';
-	}
+    $response = $client->reverse(48.8539373, 2.2825966);
+    if ($response->isOK()) {
+        echo $response->getAddress();
+    } else {
+        echo 'Address not found';
+    }
 } catch (\PhpNominatim\Exception $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 } catch (Exception $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 }
 ```
 
@@ -47,17 +47,37 @@ try {
 ```php
 $client = new \PhpNominatim\Client();
 try {
-	$client->setAddressDetails(1);
-	$response = $client->lookup('R146656,W104393803,N240109189');
-	if ($response->isOK()) {
-		echo '<pre>';
-		print_r($response->toArray());
-	} else {
-		echo 'Address not found';
-	}
+    $client->setAddressDetails(1);
+    $response = $client->lookup('R146656,W104393803,N240109189');
+    if ($response->isOK()) {
+        echo '<pre>';
+        print_r($response->toArray());
+    } else {
+        echo 'Address not found';
+    }
 } catch (\PhpNominatim\Exception $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 } catch (Exception $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
+}
+```
+
+#### Place details
+```php
+$client = new \PhpNominatim\Client();
+try {
+    $client->setAddressDetails(1);
+    $response = $client->details(199375150);
+    if ($response->isOK())
+    {
+        echo '<pre>';
+        print_r($response->toArray());
+    } else {
+        echo 'Place not found';
+    }
+} catch (\PhpNominatim\Exception $e) {
+    echo $e->getMessage();
+} catch (Exception $e) {
+    echo $e->getMessage();
 }
 ```
