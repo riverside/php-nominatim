@@ -1,5 +1,5 @@
 <?php
-namespace PhpNominatim;
+namespace Nominatim;
 
 use PHPUnit\Framework\TestCase;
 

@@ -17,7 +17,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 #### Search (geocoding)
 ```php
-$client = new \PhpNominatim\Client();
+$client = new \Nominatim\Client();
 try {
     $response = $client->search('Madison Square Garden, NY');
     if ($response->isOK()) {
@@ -25,7 +25,7 @@ try {
     } else {
         echo 'Location not found.';
     }
-} catch (\PhpNominatim\Exception $e) {
+} catch (\Nominatim\Exception $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
@@ -34,7 +34,7 @@ try {
 
 #### Reverse geocoding
 ```php
-$client = new \PhpNominatim\Client();
+$client = new \Nominatim\Client();
 try {
     $response = $client->reverse(48.8539373, 2.2825966);
     if ($response->isOK()) {
@@ -42,7 +42,7 @@ try {
     } else {
         echo 'Address not found';
     }
-} catch (\PhpNominatim\Exception $e) {
+} catch (\Nominatim\Exception $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
@@ -51,7 +51,7 @@ try {
 
 #### Address lookup
 ```php
-$client = new \PhpNominatim\Client();
+$client = new \Nominatim\Client();
 try {
     $client->setAddressDetails(1);
     $response = $client->lookup('R146656,W104393803,N240109189');
@@ -61,7 +61,7 @@ try {
     } else {
         echo 'Address not found';
     }
-} catch (\PhpNominatim\Exception $e) {
+} catch (\Nominatim\Exception $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
@@ -70,7 +70,7 @@ try {
 
 #### Place details
 ```php
-$client = new \PhpNominatim\Client();
+$client = new \Nominatim\Client();
 try {
     $client->setAddressDetails(1);
     $response = $client->details(199375150);
@@ -81,7 +81,7 @@ try {
     } else {
         echo 'Place not found';
     }
-} catch (\PhpNominatim\Exception $e) {
+} catch (\Nominatim\Exception $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();

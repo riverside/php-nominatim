@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/../src/autoload.php';
 
-$client = new \PhpNominatim\Client();
+$client = new \Nominatim\Client();
 
 try {
 	$response = $client->reverse(48.8539373, 2.2825966);
@@ -11,7 +11,7 @@ try {
 	} else {
 		echo 'Address not found';
 	}
-} catch (\PhpNominatim\Exception $e) {
+} catch (\Nominatim\Exception $e) {
 	echo $e->getMessage();
 } catch (Exception $e) {
 	echo $e->getMessage();

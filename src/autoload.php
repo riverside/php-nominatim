@@ -1,7 +1,7 @@
 <?php
 spl_autoload_register(function ($className)
 {
-    $prefix = "PhpNominatim\\";
+    $prefix = "Nominatim\\";
 
     $length = strlen($prefix);
     if (strncmp($prefix, $className, $length) !== 0)
