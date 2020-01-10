@@ -5,7 +5,7 @@ A PHP client for Nominatim, the search engine for OpenStreetMap data.
 | --- | --- | --- |
 | [![Build Status](https://api.travis-ci.org/riverside/php-nominatim.svg)](https://travis-ci.org/riverside/php-nominatim) | [![Latest Stable Version](https://poser.pugx.org/riverside/php-nominatim/v/stable)](https://packagist.org/packages/riverside/php-nominatim) | [![License](https://poser.pugx.org/riverside/php-nominatim/license)](https://packagist.org/packages/riverside/php-nominatim) |
 
-#### Installation
+### Installation
 - If Composer is already installed
 ```
 composer require riverside/php-nominatim
@@ -27,12 +27,12 @@ Finally, use Composer to install php-nominatim and its dependencies:
 $ php composer.phar install
 ```
 
-#### Loading
+### Loading
 ```php
 require __DIR__ . '/vendor/autoload.php';
 ```
 
-#### Search (geocoding)
+### Search (geocoding)
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -49,7 +49,7 @@ try {
 }
 ```
 
-#### Reverse geocoding
+### Reverse geocoding
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -66,7 +66,7 @@ try {
 }
 ```
 
-#### Address lookup
+### Address lookup
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -85,7 +85,7 @@ try {
 }
 ```
 
-#### Place details
+### Place details
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -105,7 +105,7 @@ try {
 }
 ```
 
-#### Links
+### Links
 - https://wiki.openstreetmap.org/wiki/Nominatim
 - https://github.com/openstreetmap/Nominatim
 - https://nominatim.openstreetmap.org/
