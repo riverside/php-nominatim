@@ -21,4 +21,109 @@ class ClientTest extends TestCase
             $this->assertClassHasAttribute($attribute, Client::class);
         }
     }
+
+    public function testDetails()
+    {
+        $client = new Client();
+        try {
+            $response = $client->details(199375150);
+
+            $this->assertInstanceOf('\Nominatim\Response', $response);
+            $this->assertTrue($response->isOK());
+
+        } catch (\Exception $e) {}
+    }
+
+    public function testLookup()
+    {
+        $client = new Client();
+        try {
+            $response = $client->lookup('R146656,W104393803,N240109189');
+
+            $this->assertInstanceOf('\Nominatim\Response', $response);
+
+            if ($response->isOK())
+            {
+                $this->assertEquals('53.4794892', $response->getLat());
+                $this->assertEquals('-2.2451148', $response->getLng());
+                $this->assertEquals('Manchester, Greater Manchester, North West England, England, United Kingdom', $response->getAddress());
+            }
+        } catch (\Exception $e) {}
+    }
+
+    public function testReverse()
+    {
+        $client = new Client();
+        try {
+            $response = $client->reverse(48.8539373, 2.2825966);
+
+            $this->assertInstanceOf('\Nominatim\Response', $response);
+
+            if ($response->isOK())
+            {
+                $this->assertEquals('Quartier de la Muette, 16th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75016, France', $response->getAddress());
+            }
+        } catch (\Exception $e) {}
+    }
+
+    public function testSearch()
+    {
+        $client = new Client();
+        try {
+            $response = $client->search('Madison Square Garden, NY');
+
+            $this->assertInstanceOf('\Nominatim\Response', $response);
+
+            if ($response->isOK())
+            {
+                $this->assertEquals('40.7505247', $response->getLat());
+                $this->assertEquals('-73.99355027800776', $response->getLng());
+            }
+        } catch (\Exception $e) {}
+    }
+
+    public function testInvalidNameDetails()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $client = new \Nominatim\Client();
+
+        $client->setNameDetails('invalid');
+    }
+
+    public function testInvalidExtraTags()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $client = new \Nominatim\Client();
+
+        $client->setExtraTags('invalid');
+    }
+
+    public function testInvalidAddressDetails()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $client = new \Nominatim\Client();
+
+        $client->setAddressDetails('invalid');
+    }
+
+    public function testInvalidEmail()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $client = new \Nominatim\Client();
+
+        $client->setEmail('invalid');
+    }
+
+    public function testInvalidDebug()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $client = new \Nominatim\Client();
+
+        $client->setDebug('invalid');
+    }
 }

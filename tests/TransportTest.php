@@ -10,6 +10,7 @@ class TransportTest extends TestCase
         $attributes = array(
             'connectTimeout',
             'httpCode',
+            'referer',
             'response',
             'sslVerifyPeer',
             'timeout',
