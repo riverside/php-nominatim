@@ -42,7 +42,7 @@ try {
     } else {
         echo 'Location not found.';
     }
-} catch (\Nominatim\Exception $e) {
+} catch (InvalidArgumentException $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
@@ -59,7 +59,7 @@ try {
     } else {
         echo 'Address not found';
     }
-} catch (\Nominatim\Exception $e) {
+} catch (InvalidArgumentException $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
@@ -78,7 +78,7 @@ try {
     } else {
         echo 'Address not found';
     }
-} catch (\Nominatim\Exception $e) {
+} catch (InvalidArgumentException $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
@@ -98,7 +98,7 @@ try {
     } else {
         echo 'Place not found';
     }
-} catch (\Nominatim\Exception $e) {
+} catch (InvalidArgumentException $e) {
     echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
