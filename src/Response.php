@@ -26,6 +26,21 @@ class Response
         return $this->data['lon'];
     }
 
+    public function getPlaceId()
+    {
+        return $this->data['place_id'];
+    }
+
+    public function getOsmId()
+    {
+        return $this->data['osm_id'];
+    }
+
+    public function getOsmType()
+    {
+        return $this->data['osm_type'];
+    }
+
     public function toJson()
     {
         return json_encode($this->data);
