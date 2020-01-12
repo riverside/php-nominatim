@@ -118,9 +118,9 @@ class Client
 
     public function setAddressDetails($value)
     {
-        if (!in_array($value, array(1,0)))
+        if (!in_array($value, array('1','0')))
         {
-            throw new Exception("Invalid value for \$addressDetails.");
+            throw new \InvalidArgumentException("Invalid value for \$addressDetails.");
         }
 
         $this->addressDetails = $value;
@@ -130,9 +130,9 @@ class Client
 
     public function setDebug($value)
     {
-        if (!in_array($value, array(1,0)))
+        if (!in_array($value, array('1','0')))
         {
-            throw new Exception("Invalid value for \$debug.");
+            throw new \InvalidArgumentException("Invalid value for \$debug.");
         }
 
         $this->debug = $value;
@@ -144,7 +144,7 @@ class Client
     {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL))
         {
-            throw new Exception("Invalid value for \$email.");
+            throw new \InvalidArgumentException("Invalid value for \$email.");
         }
 
         $this->email = $value;
@@ -154,9 +154,9 @@ class Client
 
     public function setExtraTags($value)
     {
-        if (!in_array($value, array(1,0)))
+        if (!in_array($value, array('1','0')))
         {
-            throw new Exception("Invalid value for \$extraTags.");
+            throw new \InvalidArgumentException("Invalid value for \$extraTags.");
         }
 
         $this->extraTags = $value;
@@ -173,9 +173,9 @@ class Client
 
     public function setNameDetails($value)
     {
-        if (!in_array($value, array(1,0)))
+        if (!in_array($value, array('1','0')))
         {
-            throw new Exception("Invalid value for \$nameDetails.");
+            throw new \InvalidArgumentException("Invalid value for \$nameDetails.");
         }
 
         $this->nameDetails = $value;

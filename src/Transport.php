@@ -7,6 +7,8 @@ class Transport
 
     protected $httpCode;
 
+    protected $referer = "";
+
     protected $response;
 
     protected $sslVerifyPeer = false;
@@ -15,14 +17,25 @@ class Transport
 
     protected $userAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36';
 
+    public function __construct()
+    {
+        if (isset($_SERVER['HTTP_REFERER']))
+        {
+            $this->setReferer($_SERVER['HTTP_REFERER']);
+        } elseif (getenv('HTTP_REFERER') !== false) {
+            $this->setReferer(getenv('HTTP_REFERER'));
+        }
+    }
+
     public function request($uri)
     {
         $ch = curl_init();
         if (!$ch)
         {
-            throw new Exception('Failed to initialize a cURL session');
+            throw new \Exception('Failed to initialize a cURL session');
         }
         curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
+        curl_setopt($ch, CURLOPT_REFERER, $this->referer);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -35,12 +48,12 @@ class Transport
 
         if ($this->httpCode != 200)
         {
-            throw new Exception('HTTP status code: ' . $this->httpCode);
+            throw new \Exception('HTTP status code: ' . $this->httpCode);
         }
 
         if (curl_errno($ch) == 28)
         {
-            throw new Exception('Timeout');
+            throw new \Exception('Timeout');
         }
         curl_close($ch);
 
@@ -60,6 +73,13 @@ class Transport
     public function setConnectTimeout($value)
     {
         $this->connectTimeout = (int) $value;
+
+        return $this;
+    }
+
+    public function setReferer($value)
+    {
+        $this->referer = $value;
 
         return $this;
     }
