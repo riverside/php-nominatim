@@ -13,7 +13,7 @@ try {
 	} else {
 		echo 'Place not found';
 	}
-} catch (\Nominatim\Exception $e) {
+} catch (InvalidArgumentException $e) {
 	echo $e->getMessage();
 } catch (Exception $e) {
 	echo $e->getMessage();

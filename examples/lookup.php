@@ -4,7 +4,10 @@ include __DIR__ . '/../src/autoload.php';
 $client = new \Nominatim\Client();
 
 try {
-	$client->setAddressDetails(1);
+	$client
+        ->setAddressDetails(1)
+        ->setNameDetails(1)
+        ->setExtraTags(1);
 	$response = $client->lookup('R146656,W104393803,N240109189');
 	if ($response->isOK())
 	{
@@ -13,7 +16,7 @@ try {
 	} else {
 		echo 'Address not found';
 	}
-} catch (\Nominatim\Exception $e) {
+} catch (InvalidArgumentException $e) {
 	echo $e->getMessage();
 } catch (Exception $e) {
 	echo $e->getMessage();
