@@ -19,6 +19,11 @@ class Transport
 
     public function __construct()
     {
+        if (!extension_loaded('curl'))
+        {
+            throw new \Exception('cURL extension is missing');
+        }
+
         if (isset($_SERVER['HTTP_REFERER']))
         {
             $this->setReferer($_SERVER['HTTP_REFERER']);
