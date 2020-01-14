@@ -20,4 +20,9 @@ class TransportTest extends TestCase
             $this->assertClassHasAttribute($attribute, Transport::class);
         }
     }
+
+    public function testCurl()
+    {
+        $this->assertTrue(extension_loaded('curl'), 'cURL extension is missing');
+    }
 }
