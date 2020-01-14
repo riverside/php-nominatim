@@ -2,6 +2,7 @@
   "name": "riverside/php-nominatim",
   "description": "PHP client for Nominatim, a search engine for OpenStreetMap data.",
   "type": "library",
+  "version": "1.1.0",
   "keywords": ["php", "osm", "geocoding", "nominatim", "openstreetmap"],
   "homepage": "https://github.com/riverside/php-nominatim",
   "license": "MIT",
