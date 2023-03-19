@@ -15,8 +15,12 @@ class Transport
 
     protected $timeout = 15;
 
-    protected $userAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36';
+    protected $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36';
 
+    /**
+     * Transport constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         if (!extension_loaded('curl'))
@@ -32,6 +36,13 @@ class Transport
         }
     }
 
+    /**
+     * Perform a cURL session
+     *
+     * @param string $uri
+     * @return $this
+     * @throws \Exception
+     */
     public function request($uri)
     {
         $ch = curl_init();

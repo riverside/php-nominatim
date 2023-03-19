@@ -19,6 +19,14 @@ class Client
 
     protected $nameDetails = 0;
 
+    /**
+     * Show all details about a single place saved in the database.
+     *
+     * @param int $place_id
+     * @param array $custom
+     * @return Response
+     * @throws \Exception
+     */
     public function details($place_id, $custom=array())
     {
         $params = array(
@@ -30,7 +38,7 @@ class Client
         );
 
         $params = array_merge($params, $custom);
-        $params = http_build_query($params, null, '&');
+        $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
         $transport->request('details?' . $params);
@@ -38,6 +46,14 @@ class Client
         return new Response($transport->getResponse());
     }
 
+    /**
+     * Query the address and other details of one or multiple OSM objects like node, way or relation.
+     *
+     * @param string $osm_ids
+     * @param array $custom
+     * @return Response
+     * @throws \Exception
+     */
     public function lookup($osm_ids, $custom=array())
     {
         $params = array(
@@ -53,7 +69,7 @@ class Client
         );
 
         $params = array_merge($params, $custom);
-        $params = http_build_query($params, null, '&');
+        $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
         $transport->request('lookup?' . $params);
@@ -61,6 +77,15 @@ class Client
         return new Response($transport->getResponse());
     }
 
+    /**
+     * Generates an address from a latitude and longitude.
+     *
+     * @param float $lat
+     * @param float $lng
+     * @param array $custom
+     * @return Response
+     * @throws \Exception
+     */
     public function reverse($lat, $lng, $custom=array())
     {
         $params = array(
@@ -77,7 +102,7 @@ class Client
         );
 
         $params = array_merge($params, $custom);
-        $params = http_build_query($params, null, '&');
+        $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
         $transport->request('reverse?' . $params);
@@ -85,6 +110,14 @@ class Client
         return new Response($transport->getResponse());
     }
 
+    /**
+     * Look up a location by given address
+     *
+     * @param string $address
+     * @param array $custom
+     * @return Response
+     * @throws \Exception
+     */
     public function search($address, $custom=array())
     {
         $params = array(
@@ -101,7 +134,7 @@ class Client
         );
 
         $params = array_merge($params, $custom);
-        $params = http_build_query($params, null, '&');
+        $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
         $transport->request('search?' . $params);
@@ -181,5 +214,25 @@ class Client
         $this->nameDetails = $value;
 
         return $this;
+    }
+
+    /**
+     * Check if the service and database is running, and when the database was last updated.
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function status()
+    {
+        $params = array(
+            'format' => $this->format,
+        );
+
+        $params = http_build_query($params, '', '&');
+
+        $transport = new Transport();
+        $transport->request('status.php?' . $params);
+
+        return new Response($transport->getResponse());
     }
 }
