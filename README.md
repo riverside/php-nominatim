@@ -33,6 +33,7 @@ require __DIR__ . '/vendor/autoload.php';
 ```
 
 ### Search (geocoding)
+Look up a location from a textual description or address.
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -50,6 +51,7 @@ try {
 ```
 
 ### Reverse geocoding
+Generates an address from a latitude and longitude.
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -67,6 +69,7 @@ try {
 ```
 
 ### Address lookup
+Query the address and other details of one or multiple OSM objects like node, way or relation.
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -86,6 +89,7 @@ try {
 ```
 
 ### Place details
+Show all details about a single place saved in the database.
 ```php
 $client = new \Nominatim\Client();
 try {
@@ -97,6 +101,26 @@ try {
         print_r($response->toArray());
     } else {
         echo 'Place not found';
+    }
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+```
+
+### Status
+Check if the service and database is running, and when the database was last updated.
+```php
+$client = new \Nominatim\Client();
+try {
+    $response = $client->status();
+    if ($response->isOK())
+    {
+        echo '<pre>';
+        print_r($response->toArray());
+    } else {
+        echo 'Status not found';
     }
 } catch (InvalidArgumentException $e) {
     echo $e->getMessage();
