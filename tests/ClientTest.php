@@ -82,6 +82,22 @@ class ClientTest extends TestCase
         } catch (\Exception $e) {}
     }
 
+    public function testStatus()
+    {
+        $client = new Client();
+        try {
+            $response = $client->status();
+
+            $this->assertInstanceOf('\Nominatim\Response', $response);
+
+            if ($response->isOK())
+            {
+                $result = $response->toArray();
+                $this->assertEquals('OK', $result['message']);
+            }
+        } catch (\Exception $e) {}
+    }
+
     public function testInvalidNameDetails()
     {
         $this->expectException(\InvalidArgumentException::class);
