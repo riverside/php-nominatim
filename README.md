@@ -3,7 +3,7 @@ A PHP client for Nominatim, the search engine for OpenStreetMap data.
 
 | Build | Stable | License |
 | --- | --- | --- |
-| [![Build Status](https://api.travis-ci.org/riverside/php-nominatim.svg)](https://travis-ci.org/riverside/php-nominatim) | [![Latest Stable Version](https://poser.pugx.org/riverside/php-nominatim/v/stable)](https://packagist.org/packages/riverside/php-nominatim) | [![License](https://poser.pugx.org/riverside/php-nominatim/license)](https://packagist.org/packages/riverside/php-nominatim) |
+| [![CI](https://github.com/riverside/php-nominatim/actions/workflows/test.yml/badge.svg)](https://github.com/riverside/php-nominatim/actions/workflows/test.yml) | [![Latest Stable Version](https://poser.pugx.org/riverside/php-nominatim/v/stable)](https://packagist.org/packages/riverside/php-nominatim) | [![License](https://poser.pugx.org/riverside/php-nominatim/license)](https://packagist.org/packages/riverside/php-nominatim) |
 
 ### Installation
 - If Composer is already installed
