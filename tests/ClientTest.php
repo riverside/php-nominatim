@@ -1,7 +1,8 @@
 <?php
-namespace Nominatim;
+namespace Nominatim\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Nominatim\Client;
 
 class ClientTest extends TestCase
 {
@@ -102,7 +103,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $client = new \Nominatim\Client();
+        $client = new Client();
 
         $client->setNameDetails('invalid');
     }
@@ -111,7 +112,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $client = new \Nominatim\Client();
+        $client = new Client();
 
         $client->setExtraTags('invalid');
     }
@@ -120,7 +121,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $client = new \Nominatim\Client();
+        $client = new Client();
 
         $client->setAddressDetails('invalid');
     }
@@ -129,7 +130,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $client = new \Nominatim\Client();
+        $client = new Client();
 
         $client->setEmail('invalid');
     }
@@ -138,7 +139,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $client = new \Nominatim\Client();
+        $client = new Client();
 
         $client->setDebug('invalid');
     }

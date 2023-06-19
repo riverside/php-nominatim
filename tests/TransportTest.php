@@ -1,7 +1,8 @@
 <?php
-namespace Nominatim;
+namespace Nominatim\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Nominatim\Transport;
 
 class TransportTest extends TestCase
 {
