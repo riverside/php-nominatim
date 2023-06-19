@@ -27,6 +27,11 @@
       "Nominatim\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Nominatim\\Tests\\": "tests/"
+    }
+  },
   "scripts": {
     "test": "vendor/bin/phpunit"
   }
