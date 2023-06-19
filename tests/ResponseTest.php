@@ -15,4 +15,9 @@ class ResponseTest extends TestCase
             $this->assertClassHasAttribute($attribute, Response::class);
         }
     }
+
+    public function testJson()
+    {
+        $this->assertTrue(extension_loaded('json'), 'JSON extension is missing');
+    }
 }

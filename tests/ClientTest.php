@@ -3,6 +3,7 @@ namespace Nominatim\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Nominatim\Client;
+use Nominatim\Response;
 
 class ClientTest extends TestCase
 {
@@ -29,7 +30,7 @@ class ClientTest extends TestCase
         try {
             $response = $client->details(199375150);
 
-            $this->assertInstanceOf('\Nominatim\Response', $response);
+            $this->assertInstanceOf(Response::class, $response);
             $this->assertTrue($response->isOK());
 
         } catch (\Exception $e) {}
@@ -41,7 +42,7 @@ class ClientTest extends TestCase
         try {
             $response = $client->lookup('R146656,W104393803,N240109189');
 
-            $this->assertInstanceOf('\Nominatim\Response', $response);
+            $this->assertInstanceOf(Response::class, $response);
 
             if ($response->isOK())
             {
@@ -58,7 +59,7 @@ class ClientTest extends TestCase
         try {
             $response = $client->reverse(48.8539373, 2.2825966);
 
-            $this->assertInstanceOf('\Nominatim\Response', $response);
+            $this->assertInstanceOf(Response::class, $response);
 
             if ($response->isOK())
             {
@@ -73,7 +74,7 @@ class ClientTest extends TestCase
         try {
             $response = $client->search('Madison Square Garden, NY');
 
-            $this->assertInstanceOf('\Nominatim\Response', $response);
+            $this->assertInstanceOf(Response::class, $response);
 
             if ($response->isOK())
             {
@@ -89,7 +90,7 @@ class ClientTest extends TestCase
         try {
             $response = $client->status();
 
-            $this->assertInstanceOf('\Nominatim\Response', $response);
+            $this->assertInstanceOf(Response::class, $response);
 
             if ($response->isOK())
             {
