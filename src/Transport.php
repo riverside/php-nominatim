@@ -1,24 +1,65 @@
 <?php
 namespace Nominatim;
 
+/**
+ * Class Transport
+ *
+ * @package Nominatim
+ */
 class Transport
 {
+    /**
+     * The number of seconds to wait while trying to connect. Use 0 to wait indefinitely.
+     *
+     * @var int
+     */
     protected $connectTimeout = 10;
 
+    /**
+     * The last response code
+     *
+     * @var int
+     */
     protected $httpCode;
 
+    /**
+     * The contents of the "Referer: " header to be used in a HTTP request.
+     *
+     * @var string
+     */
     protected $referer = "";
 
+    /**
+     * The response
+     *
+     * @var mixed
+     */
     protected $response;
 
+    /**
+     * false to stop cURL from verifying the peer's certificate
+     *
+     * @var bool
+     */
     protected $sslVerifyPeer = false;
 
+    /**
+     * The maximum number of seconds to allow cURL functions to execute.
+     *
+     * @var int
+     */
     protected $timeout = 15;
 
+    /**
+     * The contents of the "User-Agent: " header to be used in a HTTP request.
+     *
+     * @var string
+     */
     protected $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36';
 
     /**
      * Transport constructor.
+     *
      * @throws \Exception
      */
     public function __construct()
@@ -40,10 +81,10 @@ class Transport
      * Perform a cURL session
      *
      * @param string $uri
-     * @return $this
+     * @return Transport
      * @throws \Exception
      */
-    public function request($uri)
+    public function request(string $uri): Transport
     {
         $ch = curl_init();
         if (!$ch)
@@ -76,47 +117,87 @@ class Transport
         return $this;
     }
 
+    /**
+     * Gets the last response code
+     *
+     * @return int
+     */
     public function getHttpCode()
     {
         return $this->httpCode;
     }
 
+    /**
+     * Gets the response
+     *
+     * @return mixed
+     */
     public function getResponse()
     {
         return $this->response;
     }
 
-    public function setConnectTimeout($value)
+    /**
+     * Sets the connect timeout value
+     *
+     * @param int $value
+     * @return Transport
+     */
+    public function setConnectTimeout(int $value): Transport
     {
-        $this->connectTimeout = (int) $value;
+        $this->connectTimeout = $value;
 
         return $this;
     }
 
-    public function setReferer($value)
+    /**
+     * Sets the referer value
+     *
+     * @param string $value
+     * @return Transport
+     */
+    public function setReferer(string $value): Transport
     {
         $this->referer = $value;
 
         return $this;
     }
 
-    public function setTimeout($value)
+    /**
+     * Sets the timeout value
+     *
+     * @param int $value
+     * @return Transport
+     */
+    public function setTimeout(int $value): Transport
     {
-        $this->timeout = (int) $value;
+        $this->timeout = $value;
 
         return $this;
     }
 
-    public function setUserAgent($value)
+    /**
+     * Sets the user-agent value
+     *
+     * @param string $value
+     * @return Transport
+     */
+    public function setUserAgent(string $value): Transport
     {
         $this->userAgent = $value;
 
         return $this;
     }
 
-    public function setSslVerifyPeer($value)
+    /**
+     * Sets the ssl verify peer value
+     *
+     * @param bool $value
+     * @return Transport
+     */
+    public function setSslVerifyPeer(bool $value): Transport
     {
-        $this->sslVerifyPeer = (bool) $value;
+        $this->sslVerifyPeer = $value;
 
         return $this;
     }
