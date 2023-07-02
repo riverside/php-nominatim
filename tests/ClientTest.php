@@ -100,31 +100,58 @@ class ClientTest extends TestCase
         } catch (\Exception $e) {}
     }
 
-    public function testInvalidNameDetails()
+    public function testInvalidTypeNameDetails()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
 
         $client = new Client();
 
         $client->setNameDetails('invalid');
     }
 
-    public function testInvalidExtraTags()
+    public function testInvalidArgumentNameDetails()
     {
         $this->expectException(\InvalidArgumentException::class);
+
+        $client = new Client();
+
+        $client->setNameDetails(123);
+    }
+
+    public function testInvalidTypeExtraTags()
+    {
+        $this->expectException(\TypeError::class);
 
         $client = new Client();
 
         $client->setExtraTags('invalid');
     }
 
-    public function testInvalidAddressDetails()
+    public function testInvalidArgumentExtraTags()
     {
         $this->expectException(\InvalidArgumentException::class);
 
         $client = new Client();
 
+        $client->setExtraTags(123);
+    }
+
+    public function testInvalidTypeAddressDetails()
+    {
+        $this->expectException(\TypeError::class);
+
+        $client = new Client();
+
         $client->setAddressDetails('invalid');
+    }
+
+    public function testInvalidArgumentAddressDetails()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $client = new Client();
+
+        $client->setAddressDetails(123);
     }
 
     public function testInvalidEmail()
@@ -136,12 +163,21 @@ class ClientTest extends TestCase
         $client->setEmail('invalid');
     }
 
-    public function testInvalidDebug()
+    public function testInvalidTypeDebug()
+    {
+        $this->expectException(\TypeError::class);
+
+        $client = new Client();
+
+        $client->setDebug('invalid');
+    }
+
+    public function testInvalidArgumentDebug()
     {
         $this->expectException(\InvalidArgumentException::class);
 
         $client = new Client();
 
-        $client->setDebug('invalid');
+        $client->setDebug(123);
     }
 }
