@@ -1,33 +1,78 @@
 <?php
 namespace Nominatim;
 
+/**
+ * Class Client
+ *
+ * @package Nominatim
+ */
 class Client
 {
+    /**
+     * Preferred language order for showing search results, overrides the value specified in the "Accept-Language" HTTP header.
+     *
+     * @var string
+     */
     protected $acceptLanguage = 'en-US';
 
+    /**
+     * Include a breakdown of the address into elements.
+     *
+     * @var int
+     */
     protected $addressDetails = 0;
 
+    /**
+     * Output assorted developer debug information
+     *
+     * @var int
+     */
     protected $debug = 0;
 
-    protected $email = null;
+    /**
+     * Email address is used to identify your requests
+     *
+     * @var string
+     */
+    protected $email = '';
 
+    /**
+     * Include additional information in the result if available, e.g. wikipedia link, opening hours.
+     *
+     * @var int
+     */
     protected $extraTags = 0;
 
+    /**
+     * Output format
+     *
+     * @var string
+     */
     protected $format = 'json';
 
-    protected $jsonCallback = null;
+    /**
+     * Wrap JSON output in a callback function (JSONP)
+     *
+     * @var string
+     */
+    protected $jsonCallback = '';
 
+    /**
+     * Include a list of alternative names in the results.
+     *
+     * @var int
+     */
     protected $nameDetails = 0;
 
     /**
      * Show all details about a single place saved in the database.
      *
      * @param int $place_id
-     * @param array $custom
+     * @param array|null $custom
      * @return Response
      * @throws \Exception
      */
-    public function details($place_id, $custom=array())
+    public function details(int $place_id, array $custom=null): Response
     {
         $params = array(
             'place_id'        => $place_id,
@@ -37,7 +82,10 @@ class Client
             'accept-language' => $this->acceptLanguage,
         );
 
-        $params = array_merge($params, $custom);
+        if ($custom)
+        {
+            $params = array_merge($params, $custom);
+        }
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
@@ -50,11 +98,11 @@ class Client
      * Query the address and other details of one or multiple OSM objects like node, way or relation.
      *
      * @param string $osm_ids
-     * @param array $custom
+     * @param array|null $custom
      * @return Response
      * @throws \Exception
      */
-    public function lookup($osm_ids, $custom=array())
+    public function lookup(string $osm_ids, array $custom=null): Response
     {
         $params = array(
             'osm_ids'         => $osm_ids,
@@ -68,7 +116,10 @@ class Client
             'debug'           => $this->debug,
         );
 
-        $params = array_merge($params, $custom);
+        if ($custom)
+        {
+            $params = array_merge($params, $custom);
+        }
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
@@ -82,11 +133,11 @@ class Client
      *
      * @param float $lat
      * @param float $lng
-     * @param array $custom
+     * @param array|null $custom
      * @return Response
      * @throws \Exception
      */
-    public function reverse($lat, $lng, $custom=array())
+    public function reverse(float $lat, float $lng, array $custom=null): Response
     {
         $params = array(
             'lat'             => $lat,
@@ -101,7 +152,10 @@ class Client
             'debug'           => $this->debug,
         );
 
-        $params = array_merge($params, $custom);
+        if ($custom)
+        {
+            $params = array_merge($params, $custom);
+        }
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
@@ -114,11 +168,11 @@ class Client
      * Look up a location by given address
      *
      * @param string $address
-     * @param array $custom
+     * @param array|null $custom
      * @return Response
      * @throws \Exception
      */
-    public function search($address, $custom=array())
+    public function search(string $address, array $custom=null): Response
     {
         $params = array(
             'q'               => $address,
@@ -133,7 +187,10 @@ class Client
             'debug'           => $this->debug,
         );
 
-        $params = array_merge($params, $custom);
+        if ($custom)
+        {
+            $params = array_merge($params, $custom);
+        }
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
@@ -142,16 +199,28 @@ class Client
         return new Response($transport->getResponse());
     }
 
-    public function setAcceptLanguage($value)
+    /**
+     * Sets the accepted language
+     *
+     * @param string $value
+     * @return Client
+     */
+    public function setAcceptLanguage(string $value): Client
     {
         $this->acceptLanguage = $value;
 
         return $this;
     }
 
-    public function setAddressDetails($value)
+    /**
+     * Sets the address details
+     *
+     * @param int $value
+     * @return Client
+     */
+    public function setAddressDetails(int $value): Client
     {
-        if (!in_array($value, array('1','0')))
+        if (!in_array($value, array(1, 0)))
         {
             throw new \InvalidArgumentException("Invalid value for \$addressDetails.");
         }
@@ -161,9 +230,15 @@ class Client
         return $this;
     }
 
-    public function setDebug($value)
+    /**
+     * Sets the debug
+     *
+     * @param int $value
+     * @return Client
+     */
+    public function setDebug(int $value): Client
     {
-        if (!in_array($value, array('1','0')))
+        if (!in_array($value, array(1, 0)))
         {
             throw new \InvalidArgumentException("Invalid value for \$debug.");
         }
@@ -173,7 +248,13 @@ class Client
         return $this;
     }
 
-    public function setEmail($value)
+    /**
+     * Sets the email
+     *
+     * @param string $value
+     * @return Client
+     */
+    public function setEmail(string $value): Client
     {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL))
         {
@@ -185,9 +266,15 @@ class Client
         return $this;
     }
 
-    public function setExtraTags($value)
+    /**
+     * Sets the extra tag
+     *
+     * @param int $value
+     * @return Client
+     */
+    public function setExtraTags(int $value): Client
     {
-        if (!in_array($value, array('1','0')))
+        if (!in_array($value, array(1, 0)))
         {
             throw new \InvalidArgumentException("Invalid value for \$extraTags.");
         }
@@ -197,16 +284,28 @@ class Client
         return $this;
     }
 
-    public function setJsonCallback($value)
+    /**
+     * Sets the json callback
+     *
+     * @param string $value
+     * @return Client
+     */
+    public function setJsonCallback(string $value): Client
     {
         $this->jsonCallback = $value;
 
         return $this;
     }
 
-    public function setNameDetails($value)
+    /**
+     * Sets the name details
+     *
+     * @param int $value
+     * @return Client
+     */
+    public function setNameDetails(int $value): Client
     {
-        if (!in_array($value, array('1','0')))
+        if (!in_array($value, array(1, 0)))
         {
             throw new \InvalidArgumentException("Invalid value for \$nameDetails.");
         }
