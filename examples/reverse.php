@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/../src/autoload.php';
 
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 
 try {
     $client
@@ -11,7 +11,7 @@ try {
 	$response = $client->reverse(48.8539373, 2.2825966);
 	if ($response->isOK())
 	{
-		echo $response->getAddress();
+		echo $response->getAddress(0);
         echo '<pre>';
         print_r($response->toArray());
 	} else {

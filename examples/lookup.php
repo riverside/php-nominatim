@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/../src/autoload.php';
 
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 
 try {
 	$client

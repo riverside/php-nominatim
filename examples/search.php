@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/../src/autoload.php';
 
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 
 try {
     $client
@@ -11,7 +11,7 @@ try {
 	$response = $client->search('Madison Square Garden, NY');
 	if ($response->isOK())
     {
-		echo $response->getLat() . ", " . $response->getLng();
+		echo $response->getLat(0) . ", " . $response->getLng(0);
 		echo '<pre>';
 		print_r($response->toArray());
 	} else {

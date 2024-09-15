@@ -4,16 +4,14 @@ include __DIR__ . '/../src/autoload.php';
 $client = new \Riverside\Nominatim\Client();
 
 try {
-    $response = $client->status();
+    $response = $client->deletable();
     if ($response->isOK())
     {
         echo '<pre>';
         print_r($response->toArray());
     } else {
-        echo 'Status not found.';
+        echo 'Deletable object(s) not found';
     }
-} catch (InvalidArgumentException $e) {
-    echo $e->getMessage();
 } catch (Exception $e) {
     echo $e->getMessage();
 }
