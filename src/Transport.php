@@ -1,10 +1,12 @@
 <?php
-namespace Nominatim;
+declare(strict_types=1);
+
+namespace Riverside\Nominatim;
 
 /**
  * Class Transport
  *
- * @package Nominatim
+ * @package Riverside\Nominatim
  */
 class Transport
 {
@@ -81,16 +83,17 @@ class Transport
      * Perform a cURL session
      *
      * @param string $uri
-     * @return Transport
+     * @return array
      * @throws \Exception
      */
-    public function request(string $uri): Transport
+    public function request(string $uri): array
     {
         $ch = curl_init();
         if (!$ch)
         {
             throw new \Exception('Failed to initialize a cURL session');
         }
+        $url = "https://nominatim.openstreetmap.org/" . $uri;
         curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($ch, CURLOPT_REFERER, $this->referer);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
@@ -98,14 +101,14 @@ class Transport
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->sslVerifyPeer);
-        curl_setopt($ch, CURLOPT_URL,"https://nominatim.openstreetmap.org/" . $uri);
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);
         $this->response = curl_exec($ch);
         $this->httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if ($this->httpCode != 200)
         {
-            throw new \Exception('HTTP status code: ' . $this->httpCode);
+            throw new \Exception("HTTP status code: {$this->httpCode}. Response: {$this->response}");
         }
 
         if (curl_errno($ch) == 28)
@@ -114,7 +117,11 @@ class Transport
         }
         curl_close($ch);
 
-        return $this;
+        return [
+            'request_url' => $url,
+            'response_code' => $this->getHttpCode(),
+            'response_data' => $this->getResponse(),
+        ];
     }
 
     /**

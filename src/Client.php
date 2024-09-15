@@ -1,10 +1,12 @@
 <?php
-namespace Nominatim;
+declare(strict_types=1);
+
+namespace Riverside\Nominatim;
 
 /**
  * Class Client
  *
- * @package Nominatim
+ * @package Riverside\Nominatim
  */
 class Client
 {
@@ -34,7 +36,7 @@ class Client
      *
      * @var string
      */
-    protected $email = '';
+    protected $email = null;
 
     /**
      * Include additional information in the result if available, e.g. wikipedia link, opening hours.
@@ -55,7 +57,7 @@ class Client
      *
      * @var string
      */
-    protected $jsonCallback = '';
+    protected $jsonCallback = null;
 
     /**
      * Include a list of alternative names in the results.
@@ -63,6 +65,26 @@ class Client
      * @var int
      */
     protected $nameDetails = 0;
+
+    /**
+     * List objects that have been deleted in OSM but are held back in Nominatim in case the deletion was accidental
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function deletable(): Response
+    {
+        $params = array(
+            'format' => $this->format,
+        );
+
+        $params = http_build_query($params, '', '&');
+
+        $transport = new Transport();
+        $data = $transport->request('deletable?' . $params);
+
+        return new Response($data);
+    }
 
     /**
      * Show all details about a single place saved in the database.
@@ -89,9 +111,9 @@ class Client
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
-        $transport->request('details?' . $params);
+        $data = $transport->request('details?' . $params);
 
-        return new Response($transport->getResponse());
+        return new Response($data);
     }
 
     /**
@@ -123,9 +145,29 @@ class Client
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
-        $transport->request('lookup?' . $params);
+        $data = $transport->request('lookup?' . $params);
 
-        return new Response($transport->getResponse());
+        return new Response($data);
+    }
+
+    /**
+     * List of broken polygons detected by Nominatim
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function polygons(): Response
+    {
+        $params = array(
+            'format' => $this->format,
+        );
+
+        $params = http_build_query($params, '', '&');
+
+        $transport = new Transport();
+        $data = $transport->request('polygons?' . $params);
+
+        return new Response($data);
     }
 
     /**
@@ -159,9 +201,9 @@ class Client
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
-        $transport->request('reverse?' . $params);
+        $data = $transport->request('reverse?' . $params);
 
-        return new Response($transport->getResponse());
+        return new Response($data);
     }
 
     /**
@@ -190,13 +232,22 @@ class Client
         if ($custom)
         {
             $params = array_merge($params, $custom);
+
+            foreach (['amenity', 'street', 'city', 'county', 'state', 'country', 'postalcode'] as $key)
+            {
+                if (isset($params[$key]) && !empty($params[$key]))
+                {
+                    unset($params['q']);
+                    break;
+                }
+            }
         }
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
-        $transport->request('search?' . $params);
+        $data = $transport->request('search?' . $params);
 
-        return new Response($transport->getResponse());
+        return new Response($data);
     }
 
     /**
@@ -321,7 +372,7 @@ class Client
      * @return Response
      * @throws \Exception
      */
-    public function status()
+    public function status(): Response
     {
         $params = array(
             'format' => $this->format,
@@ -330,8 +381,8 @@ class Client
         $params = http_build_query($params, '', '&');
 
         $transport = new Transport();
-        $transport->request('status.php?' . $params);
+        $data = $transport->request('status?' . $params);
 
-        return new Response($transport->getResponse());
+        return new Response($data);
     }
 }
