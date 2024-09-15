@@ -1,9 +1,11 @@
 <?php
-namespace Nominatim\Tests;
+declare(strict_types=1);
 
-use Nominatim\Response;
+namespace Riverside\Nominatim\Tests;
+
+use Riverside\Nominatim\Response;
 use PHPUnit\Framework\TestCase;
-use Nominatim\Transport;
+use Riverside\Nominatim\Transport;
 
 class TransportTest extends TestCase
 {
@@ -32,12 +34,12 @@ class TransportTest extends TestCase
     {
         try {
             $transport = new Transport();
-            $transport->request('reverse?format=json&lat=43.2178847&lon=27.907794');
+            $data = $transport->request('reverse?format=json&lat=43.2178847&lon=27.907794');
 
             $this->assertSame(200, $transport->getHttpCode());
             $this->assertNotEmpty($transport->getResponse());
 
-            $response = new Response($transport->getResponse());
+            $response = new Response($data);
             $this->assertTrue($response->isOK());
         } catch (\Exception $e) {
 

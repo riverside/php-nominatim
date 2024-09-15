@@ -1,9 +1,11 @@
 <?php
-namespace Nominatim\Tests;
+declare(strict_types=1);
+
+namespace Riverside\Nominatim\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Nominatim\Client;
-use Nominatim\Response;
+use Riverside\Nominatim\Client;
+use Riverside\Nominatim\Response;
 
 class ClientTest extends TestCase
 {
@@ -46,9 +48,9 @@ class ClientTest extends TestCase
 
             if ($response->isOK())
             {
-                $this->assertEquals('53.4794892', $response->getLat());
-                $this->assertEquals('-2.2451148', $response->getLng());
-                $this->assertEquals('Manchester, Greater Manchester, North West England, England, United Kingdom', $response->getAddress());
+                $this->assertEquals('53.4794892', $response->getLat(0));
+                $this->assertEquals('-2.2451148', $response->getLng(0));
+                $this->assertEquals('Manchester, Greater Manchester, North West England, England, United Kingdom', $response->getAddress(0));
             }
         } catch (\Exception $e) {}
     }
@@ -63,7 +65,7 @@ class ClientTest extends TestCase
 
             if ($response->isOK())
             {
-                $this->assertEquals('Quartier de la Muette, 16th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75016, France', $response->getAddress());
+                $this->assertEquals('Quartier de la Muette, 16th Arrondissement, Paris, Ile-de-France, Metropolitan France, 75016, France', $response->getAddress(0));
             }
         } catch (\Exception $e) {}
     }
@@ -78,8 +80,8 @@ class ClientTest extends TestCase
 
             if ($response->isOK())
             {
-                $this->assertEquals('40.7505247', $response->getLat());
-                $this->assertEquals('-73.99355027800776', $response->getLng());
+                $this->assertEquals('40.7505247', $response->getLat(0));
+                $this->assertEquals('-73.99355027800776', $response->getLng(0));
             }
         } catch (\Exception $e) {}
     }
