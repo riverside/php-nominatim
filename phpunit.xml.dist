@@ -4,4 +4,7 @@
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <server name="HTTP_REFERER" value=""/>
+    </php>
 </phpunit>
