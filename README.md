@@ -18,7 +18,7 @@ Next, add the following require entry to the composer.json file in the root of y
 ```json
 {
     "require" : {
-        "riverside/php-nominatim" : "*"
+        "riverside/php-nominatim" : "^2.0"
     }
 }
 ```
@@ -35,11 +35,11 @@ require __DIR__ . '/vendor/autoload.php';
 ### Search (geocoding)
 Look up a location from a textual description or address.
 ```php
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 try {
     $response = $client->search('Madison Square Garden, NY');
     if ($response->isOK()) {
-        echo $response->getLat() . ", " . $response->getLng();
+        echo $response->getLat(0) . ", " . $response->getLng(0);
     } else {
         echo 'Location not found.';
     }
@@ -53,11 +53,11 @@ try {
 ### Reverse geocoding
 Generates an address from a latitude and longitude.
 ```php
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 try {
     $response = $client->reverse(48.8539373, 2.2825966);
     if ($response->isOK()) {
-        echo $response->getAddress();
+        echo $response->getAddress(0);
     } else {
         echo 'Address not found';
     }
@@ -71,7 +71,7 @@ try {
 ### Address lookup
 Query the address and other details of one or multiple OSM objects like node, way or relation.
 ```php
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 try {
     $client->setAddressDetails(1);
     $response = $client->lookup('R146656,W104393803,N240109189');
@@ -91,7 +91,7 @@ try {
 ### Place details
 Show all details about a single place saved in the database.
 ```php
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 try {
     $client->setAddressDetails(1);
     $response = $client->details(199375150);
@@ -112,7 +112,7 @@ try {
 ### Status
 Check if the service and database is running, and when the database was last updated.
 ```php
-$client = new \Nominatim\Client();
+$client = new \Riverside\Nominatim\Client();
 try {
     $response = $client->status();
     if ($response->isOK())
@@ -121,6 +121,46 @@ try {
         print_r($response->toArray());
     } else {
         echo 'Status not found';
+    }
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+```
+
+### Deletable
+List objects that have been deleted in OSM but are held back in Nominatim in case the deletion was accidental.
+```php
+$client = new \Riverside\Nominatim\Client();
+try {
+    $response = $client->deletable();
+    if ($response->isOK())
+    {
+        echo '<pre>';
+        print_r($response->toArray());
+    } else {
+        echo 'Deletable objects not found';
+    }
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+```
+
+### Polygons
+List of broken polygons detected by Nominatim.
+```php
+$client = new \Riverside\Nominatim\Client();
+try {
+    $response = $client->polygons();
+    if ($response->isOK())
+    {
+        echo '<pre>';
+        print_r($response->toArray());
+    } else {
+        echo 'Polygons not found';
     }
 } catch (InvalidArgumentException $e) {
     echo $e->getMessage();
