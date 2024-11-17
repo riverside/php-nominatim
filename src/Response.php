@@ -117,7 +117,7 @@ class Response
      */
     public function getOsmId(int $index): int
     {
-        return $this->get($index, 'osm_id');
+        return (int) $this->get($index, 'osm_id');
     }
 
     /**
@@ -168,7 +168,7 @@ class Response
      */
     public function getHttpCode(): int
     {
-        return $this->response_code;
+        return (int) $this->response_code;
     }
 
     /**
@@ -188,7 +188,7 @@ class Response
      */
     public function getErrorCode(): int
     {
-        return isset($this->response_data['error']['code']) ? $this->response_data['error']['code'] : 0;
+        return isset($this->response_data['error']['code']) ? (int) $this->response_data['error']['code'] : 0;
     }
 
     /**
