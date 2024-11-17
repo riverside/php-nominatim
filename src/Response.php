@@ -106,7 +106,7 @@ class Response
      */
     public function getPlaceId(int $index): int
     {
-        return $this->get($index, 'place_id');
+        return (int) $this->get($index, 'place_id');
     }
 
     /**
