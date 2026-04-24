@@ -18,7 +18,7 @@ Next, add the following require entry to the composer.json file in the root of y
 ```json
 {
     "require" : {
-        "riverside/php-nominatim" : "^2.0"
+        "riverside/php-nominatim" : "^2.0.1"
     }
 }
 ```
